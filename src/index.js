@@ -1,45 +1,3 @@
-// let weather = {
-//   paris: {
-//     temp: 19.7,
-//     humidity: 80,
-//   },
-//   tokyo: {
-//     temp: 17.3,
-//     humidity: 50,
-//   },
-//   lisbon: {
-//     temp: 30.2,
-//     humidity: 20,
-//   },
-//   "san francisco": {
-//     temp: 20.9,
-//     humidity: 100,
-//   },
-//   oslo: {
-//     temp: -5,
-//     humidity: 20,
-//   },
-// };
-
-// // write your code here
-
-// let city = prompt("Enter a city").trim().toLowerCase();
-
-// if (weather[city]) {
-//   let cel = weather[city].temp;
-//   let fern = Math.round(cel * 1.8 + 32);
-//   cel = Math.round(cel);
-
-//   alert(
-//     `It is currently ${cel}℃ (${fern}℉) in ${city} with a humidity of ${weather[city].humidity}%`
-//   );
-// } else {
-//   alert(
-//     `Sorry, we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`
-//   );
-// }
-
-//information for current day and time
 let now = new Date();
 let days = [
   "Sunday",
@@ -145,6 +103,12 @@ function currentTemp(current) {
     Math.round(current.data.wind.speed) + "mph";
   document.querySelector(".description").innerHTML =
     current.data.weather[0].description;
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${current.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", current.data.weather[0].description);
 }
 
 function clickMeWeather(current) {

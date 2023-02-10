@@ -23,6 +23,7 @@
   cursor: pointer;
   background-color: aqua;
   padding: 8px;
+  border-radius: 15px;
 }
 
 input {
