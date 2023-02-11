@@ -29,7 +29,31 @@ let degreeFehrn = "℉";
 //information for api
 let apiKey = "281450ec88936f4fa8ee9864682b49a0";
 let url =
-  "https://api.openweathermap.org/data/2.5/weather?q=sydney&appid=281450ec88936f4fa8ee9864682b49a0&units=imperial";
+  "https://api.openweathermap.org/data/2.5/weather?q=boston&appid=281450ec88936f4fa8ee9864682b49a0&units=imperial";
+
+function defaultCity(original) {
+  let city = document.querySelector(".city");
+  city.innerHTML = original.data.name;
+  let temperature = Math.round(original.data.main.temp);
+  tempF = temperature;
+  tempC = Math.round(((temperature - 32) * 5) / 9);
+  document.querySelector(".temp").innerHTML = temperature + degreeFehrn;
+  document.querySelector("#feelsLike").innerHTML = Math.round(
+    original.data.main.feels_like
+  );
+  document.querySelector("#humidity").innerHTML =
+    Math.round(original.data.main.humidity) + "%";
+  document.querySelector("#wind").innerHTML =
+    Math.round(original.data.wind.speed) + "mph";
+  document.querySelector(".description").innerHTML =
+    original.data.weather[0].description;
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${original.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", original.data.weather[0].description);
+}
 
 function getCity(run) {
   run.preventDefault();
@@ -46,16 +70,7 @@ function getCity(run) {
 
     axios.get(cityUrl).then(currentTemp);
   }
-  //   let contWeek = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${result}&cnt=5&appid=281450ec88936f4fa8ee9864682b49a0&units=imperial`;
-  //   axios.get(contWeek).then(weekTemp);
 }
-
-//couldn't do this function bc api key doesn't have access for daily call
-// function weekTemp(weeks) {
-//   console.log(weeks);
-//   let temperature = Math.round(weeks.data.main.temp);
-//   document.querySelector(".temp").innerHTML = temperature;
-// }
 
 function celcius() {
   let num = document.querySelector(".temp");
@@ -141,6 +156,7 @@ function clickMe() {
   navigator.geolocation.getCurrentPosition(retrievePosition);
 }
 
+axios.get(url).then(defaultCity);
 document.querySelector("#input").addEventListener("submit", getCity);
 document.querySelector("#celcius").addEventListener("click", celcius);
 document.querySelector("#fahrenheit").addEventListener("click", fehrn);
