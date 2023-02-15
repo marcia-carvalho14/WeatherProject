@@ -26,31 +26,27 @@ let degreeFehrn = "℉";
 //information for api
 let apiKey = "281450ec88936f4fa8ee9864682b49a0";
 let url =
-  "https://api.openweathermap.org/data/2.5/weather?q=boston&appid=281450ec88936f4fa8ee9864682b49a0&units=imperial";
+  "https://api.shecodes.io/weather/v1/current?query=boston&key=be4393eda0e0c5df64b74oft05bfad34&units=imperial";
 let dailyUrl =
   "https://api.shecodes.io/weather/v1/forecast?query=boston&key=eac360db5fc86ft86450f3693e73o43f&units=imperial";
 
 function defaultCity(original) {
   let city = document.querySelector(".city");
-  city.innerHTML = original.data.name;
-  let temperature = Math.round(original.data.main.temp);
+  city.innerHTML = original.data.city;
+  let temperature = Math.round(original.data.temperature.current);
   tempF = temperature;
   tempC = Math.round(((temperature - 32) * 5) / 9);
   document.querySelector(".temp").innerHTML = temperature + degreeFehrn;
-  document.querySelector("#feelsLike").innerHTML = Math.round(
-    original.data.main.feels_like
-  );
+  document.querySelector("#feelsLike").innerHTML =
+    Math.round(original.data.temperature.feels_like) + degreeFehrn;
   document.querySelector("#humidity").innerHTML =
-    Math.round(original.data.main.humidity) + "%";
+    Math.round(original.data.temperature.humidity) + "%";
   document.querySelector("#wind").innerHTML =
     Math.round(original.data.wind.speed) + "mph";
   document.querySelector(".description").innerHTML =
-    original.data.weather[0].description;
+    original.data.condition.description;
   let iconElement = document.querySelector("#icon");
-  iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${original.data.weather[0].icon}@2x.png`
-  );
+  iconElement.setAttribute("src", original.data.condition.icon_url);
   iconElement.setAttribute("alt", original.data.weather[0].description);
 }
 
@@ -65,7 +61,7 @@ function getCity(run) {
   } else {
     city.innerHTML = result;
 
-    let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${result}&appid=281450ec88936f4fa8ee9864682b49a0&units=imperial`;
+    let cityUrl = `https://api.shecodes.io/weather/v1/current?query=${result}&key=be4393eda0e0c5df64b74oft05bfad34&units=imperial`;
 
     let dailyUrl = `https://api.shecodes.io/weather/v1/forecast?query=${result}&key=eac360db5fc86ft86450f3693e73o43f&units=imperial`;
 
@@ -79,7 +75,7 @@ function getCity(run) {
 
 function currentTemp(current) {
   console.log(current.data);
-  let temperature = Math.round(current.data.main.temp);
+  let temperature = Math.round(current.data.temperature.current);
   tempF = temperature;
   tempC = Math.round(((temperature - 32) * 5) / 9);
   document.querySelector(".temp").innerHTML = temperature + degreeFehrn;
@@ -93,10 +89,7 @@ function currentTemp(current) {
   document.querySelector(".description").innerHTML =
     current.data.weather[0].description;
   let iconElement = document.querySelector("#icon");
-  iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${current.data.weather[0].icon}@2x.png`
-  );
+  iconElement.setAttribute("src", original.data.condition.icon_url);
   iconElement.setAttribute("alt", current.data.weather[0].description);
 }
 

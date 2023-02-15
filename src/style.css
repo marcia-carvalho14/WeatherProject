@@ -59,10 +59,12 @@ input {
 }
 
 .cloud {
-  font-size: 55px;
+  font-size: 100px;
   text-align: right;
 }
-
+#icon {
+  width: 100%;
+}
 .temp {
   font-size: 30px;
   font-weight: bold;
@@ -71,7 +73,6 @@ input {
 .description {
   text-align: center;
   font-style: italic;
-  padding-top: 15px;
   text-transform: capitalize;
 }
 
