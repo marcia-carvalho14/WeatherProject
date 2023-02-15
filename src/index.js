@@ -67,7 +67,13 @@ function getCity(run) {
 
     let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${result}&appid=281450ec88936f4fa8ee9864682b49a0&units=imperial`;
 
+    let dailyUrl = `https://api.shecodes.io/weather/v1/forecast?query=${result}&key=eac360db5fc86ft86450f3693e73o43f&units=imperial`;
+
+    const element = document.getElementById("dailyUL");
+    element.remove();
+
     axios.get(cityUrl).then(currentTemp);
+    axios.get(dailyUrl).then(forecast);
   }
 }
 
@@ -106,6 +112,7 @@ function forecast(temp) {
   let daily = temp.data.daily;
   let forecast = document.querySelector("#dailyForecast");
   let ul = document.createElement("ul");
+  ul.id = "dailyUL";
   ul.className = "d-flex";
   ul.classList.add("m-0");
   ul.classList.add("p-0");
