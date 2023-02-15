@@ -21,7 +21,6 @@ currentTime.innerHTML = `${hour}:${minute}`;
 //information for temperature
 let tempC;
 let tempF;
-let degreeCelcius = "℃";
 let degreeFehrn = "℉";
 
 //information for api
@@ -104,7 +103,6 @@ function formatDay(timestamp) {
 }
 
 function forecast(temp) {
-  console.log(temp.data);
   let daily = temp.data.daily;
   let forecast = document.querySelector("#dailyForecast");
   let ul = document.createElement("ul");
@@ -116,21 +114,21 @@ function forecast(temp) {
   daily.forEach((day, index) => {
     if (index < 6) {
       let container = document.createElement("div");
-      let div1 = document.createElement("div");
+      let dayName = document.createElement("div");
       let img = document.createElement("img");
-      let div2 = document.createElement("div");
+      let dailyTemp = document.createElement("div");
 
       img.className = "w-2";
-      div1.className = "text-center";
-      div2.className = "text-center";
+      dayName.className = "text-center";
+      dailyTemp.className = "text-center";
 
-      div1.innerHTML = formatDay(temp.data.daily[index + 1].time);
+      dayName.innerHTML = formatDay(temp.data.daily[index + 1].time);
       img.src = day.condition.icon_url;
-      div2.innerHTML = Math.round(day.temperature.day) + degreeFehrn;
+      dailyTemp.innerHTML = Math.round(day.temperature.day) + degreeFehrn;
 
-      container.append(div1);
+      container.append(dayName);
       container.append(img);
-      container.append(div2);
+      container.append(dailyTemp);
 
       ul.append(container);
     }
@@ -171,4 +169,3 @@ axios.get(url).then(defaultCity);
 axios.get(dailyUrl).then(forecast);
 document.querySelector("#input").addEventListener("submit", getCity);
 document.querySelector("#current").addEventListener("click", clickMe);
-forecast();
