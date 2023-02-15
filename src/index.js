@@ -21,8 +21,6 @@ currentTime.innerHTML = `${hour}:${minute}`;
 //information for temperature
 let tempC;
 let tempF;
-// let tempCelBottom = 15;
-// let tempFernBottom = 25;
 let degreeCelcius = "℃";
 let degreeFehrn = "℉";
 
@@ -30,6 +28,8 @@ let degreeFehrn = "℉";
 let apiKey = "281450ec88936f4fa8ee9864682b49a0";
 let url =
   "https://api.openweathermap.org/data/2.5/weather?q=boston&appid=281450ec88936f4fa8ee9864682b49a0&units=imperial";
+let dailyUrl =
+  "https://api.shecodes.io/weather/v1/forecast?query=boston&key=eac360db5fc86ft86450f3693e73o43f&units=imperial";
 
 function defaultCity(original) {
   let city = document.querySelector(".city");
@@ -72,37 +72,6 @@ function getCity(run) {
   }
 }
 
-function celcius() {
-  let num = document.querySelector(".temp");
-  if (tempC === undefined) {
-    tempC = -1;
-  }
-  num.innerHTML = `${tempC}${degreeCelcius}`;
-  let others = document.querySelectorAll(".degree");
-  others.forEach(
-    (degree) => (degree.innerHTML = `${tempCelBottom}${degreeCelcius}`)
-  );
-}
-
-function fehrn() {
-  let num = document.querySelector(".temp");
-  if (tempF === undefined) {
-    tempF = 29;
-  }
-  num.innerHTML = `${tempF}${degreeFehrn}`;
-  let others = document.querySelectorAll(".degree");
-  others.forEach(
-    (degree) => (degree.innerHTML = `${tempFernBottom}${degreeFehrn}`)
-  );
-}
-
-// function runTemp(response) {
-//   console.log(response);
-//   let temperature = Math.round(response.data.main.temp);
-//   let h1 = document.querySelector("h1");
-//   h1.innerHTML = `It is ${temperature}℉ in Sydney`;
-// }
-
 function currentTemp(current) {
   console.log(current.data);
   let temperature = Math.round(current.data.main.temp);
@@ -124,6 +93,48 @@ function currentTemp(current) {
     `http://openweathermap.org/img/wn/${current.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", current.data.weather[0].description);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
+function forecast(temp) {
+  console.log(temp.data);
+  let daily = temp.data.daily;
+  let forecast = document.querySelector("#dailyForecast");
+  let ul = document.createElement("ul");
+  ul.className = "d-flex";
+  ul.classList.add("m-0");
+  ul.classList.add("p-0");
+  forecast.append(ul);
+
+  daily.forEach((day, index) => {
+    if (index < 6) {
+      let container = document.createElement("div");
+      let div1 = document.createElement("div");
+      let img = document.createElement("img");
+      let div2 = document.createElement("div");
+
+      img.className = "w-2";
+      div1.className = "text-center";
+      div2.className = "text-center";
+
+      div1.innerHTML = formatDay(temp.data.daily[index + 1].time);
+      img.src = day.condition.icon_url;
+      div2.innerHTML = Math.round(day.temperature.day) + degreeFehrn;
+
+      container.append(div1);
+      container.append(img);
+      container.append(div2);
+
+      ul.append(container);
+    }
+  });
 }
 
 function clickMeWeather(current) {
@@ -157,13 +168,7 @@ function clickMe() {
 }
 
 axios.get(url).then(defaultCity);
+axios.get(dailyUrl).then(forecast);
 document.querySelector("#input").addEventListener("submit", getCity);
-document.querySelector("#celcius").addEventListener("click", celcius);
-document.querySelector("#fahrenheit").addEventListener("click", fehrn);
 document.querySelector("#current").addEventListener("click", clickMe);
-
-// document.querySelector("#fahrenheit").addEventListener("click", fahrenheit);
-// let tempFahr = 10;
-// let tempBottom = 15;
-// let degreeCelcius = "℃";
-// function fahrenheit() {}
+forecast();
