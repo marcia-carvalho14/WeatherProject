@@ -12,7 +12,9 @@
 }
 
 #search {
-  border: 1px solid grey;
+  background-color: rgba(128, 128, 128, 0.089);
+  box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.421);
+  width: 70%;
 }
 
 .options {
@@ -47,6 +49,7 @@ input {
   background-color: rgba(111, 236, 255, 0.503);
   font-weight: bold;
   color: rgb(0, 0, 0);
+  box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.421);
 }
 
 #current {
@@ -56,6 +59,8 @@ input {
   border-radius: 10px;
   font-weight: bold;
   color: rgb(0, 0, 0);
+  padding: 0px;
+  box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.421);
 }
 
 .cloud {

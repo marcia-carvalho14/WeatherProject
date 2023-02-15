@@ -16,6 +16,13 @@ weekDay.innerHTML = day;
 let currentTime = document.querySelector(".time");
 let hour = now.getHours();
 let minute = now.getMinutes();
+
+if (hour < 10) {
+  hour = `0${hour}`;
+}
+if (minute < 10) {
+  minute = `0${minute}`;
+}
 currentTime.innerHTML = `${hour}:${minute}`;
 
 //information for temperature
@@ -106,9 +113,7 @@ function forecast(temp) {
   let forecast = document.querySelector("#dailyForecast");
   let ul = document.createElement("ul");
   ul.id = "dailyUL";
-  ul.className = "d-flex";
-  ul.classList.add("m-0");
-  ul.classList.add("p-0");
+  ul.className = "d-flex m-0 p-0";
   forecast.append(ul);
 
   daily.forEach((day, index) => {
