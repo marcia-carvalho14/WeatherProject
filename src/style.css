@@ -1,8 +1,13 @@
+#project {
+  background: rgba(125, 238, 240, 0.227);
+}
+
 .body {
   margin: 20px auto;
   background: rgba(111, 236, 255, 0.294);
   padding: 25px;
-  border-radius: 15px;
+  border: 1px solid rgba(42, 103, 108, 0.464);
+  border-radius: 10px;
   max-width: 700px;
 }
 
@@ -21,9 +26,10 @@
 #fahrenheit:hover {
   font-size: 21px;
   cursor: pointer;
-  background-color: aqua;
+  background-color: rgb(42, 102, 108);
   padding: 8px;
-  border-radius: 15px;
+  border-radius: 10px;
+  color: white;
 }
 
 input {
@@ -35,16 +41,18 @@ input {
 
 #button {
   width: 25%;
-  background-color: aqua;
+  background-color: rgb(42, 102, 108);
   font-weight: bold;
+  color: white;
 }
 
 #current {
   width: 25%;
-  background-color: aqua;
+  background-color: rgb(42, 102, 108);
   border: none;
   border-radius: 10px;
   font-weight: bold;
+  color: white;
 }
 
 .cloud {
@@ -94,4 +102,13 @@ input {
 footer {
   text-align: right;
   padding-right: 20px;
+}
+
+footer a {
+  text-decoration: none;
+  color: rgb(42, 102, 108);
+}
+
+footer a:hover {
+  text-decoration: underline;
 }

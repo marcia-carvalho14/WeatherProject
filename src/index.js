@@ -21,8 +21,8 @@ currentTime.innerHTML = `${hour}:${minute}`;
 //information for temperature
 let tempC;
 let tempF;
-let tempCelBottom = 15;
-let tempFernBottom = 25;
+// let tempCelBottom = 15;
+// let tempFernBottom = 25;
 let degreeCelcius = "℃";
 let degreeFehrn = "℉";
 
