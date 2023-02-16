@@ -164,6 +164,10 @@ function retrievePosition(position) {
   let lon = position.coords.longitude;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
   axios.get(url).then(clickMeWeather);
+
+  const element = document.getElementById("dailyUL");
+  element.remove();
+  axios.get(dailyUrl).then(forecast);
 }
 
 function clickMe() {
